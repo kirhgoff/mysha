@@ -11,11 +11,13 @@
       <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
 
       <!-- Other module inherits                                      -->
-
+       <source path='domain'/>
+       <source path='client'/>
 
       <!-- Specify the app entry point class.                         -->
 	<entry-point class='org.kirhgoff.mysha.client.MyshaApplication' />
 	<servlet path="/service/auth" class="org.kirhgoff.mysha.server.AuthServiceImpl" />
+	<servlet path="/service/customer" class="org.kirhgoff.mysha.server.CustomerServiceImpl" />
 	
       <!-- Specify the application specific style sheet.              -->
 	<stylesheet src='MyshaApplication.css' />
