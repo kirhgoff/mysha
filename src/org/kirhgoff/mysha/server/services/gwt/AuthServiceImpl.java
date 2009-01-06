@@ -1,6 +1,6 @@
-package org.kirhgoff.mysha.server;
+package org.kirhgoff.mysha.server.services.gwt;
 
-import org.kirhgoff.mysha.client.services.AuthService;
+import org.kirhgoff.mysha.client.interfaces.AuthService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -8,6 +8,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class AuthServiceImpl extends RemoteServiceServlet implements AuthService {
 
 	public boolean authorize(String username, String password) {
+		//TODO dao call
 		return "mysha".equals(username) && "password".equals(password);
 	}
 

@@ -3,13 +3,15 @@
 	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd"
 	default-autowire="byName">
-	
+
+	<!-- ============== Logging ======================== -->
+		
 	<bean id="log4jInitialization" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
 		<property name="targetClass" value="org.springframework.util.Log4jConfigurer" />
 		<property name="targetMethod" value="initLogging" />
 		<property name="arguments">
 			<list>
-				<value>classpath:org/kirhgoff/mysha/resources/log4j.xml</value>
+				<value>classpath:org/kirhgoff/mysha/log4j.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -18,7 +20,7 @@
 	<!-- Include common resources -->
 		<!-- Hibernate EntityManager Factory -->
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="persistenceXmlLocation" value="classpath:/org/kirhgoff/mysha/resources/persistence.xml" />
+		<property name="persistenceXmlLocation" value="classpath:/org/kirhgoff/mysha/persistence.xml" />
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 				<property name="showSql" value="true" />
@@ -45,34 +47,9 @@
 		annotations
 	-->
 	<tx:annotation-driven />
-	
-	<!--==================== DAO ===============================-->
-	<bean id="customerDAO" class="org.kirhgoff.mysha.server.dao.CustomerDAOImpl" />
 
-	
-	<!-- User DAO 
-	<bean id="userDAO" class="net.sf.gilead.sample.server.dao.jpa.UserDAO" />
-	-->
-	
-	<!--==================== Services ===========================-->
-	<!--
-		Message service <bean id="messageService" class="net.sf.gilead.sample.server.service.implementation.MessageService">
-		<property name="messageDAO" ref="messageDAO" /> </bean>
-	-->
-	<!--
-		Identification service <bean id="identificationService"
-		class="net.sf.gilead.sample.server.service.implementation.IdentificationService"> <property name="userDAO"
-		ref="userDAO" /> </bean>
-	-->
-	
-	<!-- Startup service-->
-	<bean id="startupService" class="org.kirhgoff.mysha.server.StartupService">
-		<property name="customerDAO" ref="customerDAO" />
-	</bean>
-	
-	
-	<!--==================== GWT stuff ===================================-->
-	<!-- Gilead configuration -->
+	<!--==================== Gilead configuration ===================================-->
+
 	<bean id="proxyStore" class="net.sf.gilead.core.store.stateless.StatelessProxyStore" />
 	<bean id="persistenceUtil" class="net.sf.gilead.core.hibernate.HibernateJpaUtil">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
@@ -81,4 +58,16 @@
 		<property name="proxyStore" ref="proxyStore" />
 		<property name="persistenceUtil" ref="persistenceUtil" />
 	</bean>
+	
+	<!--==================== DAO Services ===============================-->
+	
+	<bean id="customerDAO" class="org.kirhgoff.mysha.server.dao.CustomerDAOImpl" />
+	
+	<!--==================== Backend Services ===========================-->
+	
+	<!-- Startup service-->
+	<bean id="startupService" class="org.kirhgoff.mysha.server.services.backend.StartupServiceImpl">
+		<property name="customerDAO" ref="customerDAO" />
+	</bean>
+	
 </beans>
