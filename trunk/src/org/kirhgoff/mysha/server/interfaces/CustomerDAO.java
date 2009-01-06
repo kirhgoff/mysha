@@ -1,4 +1,4 @@
-package org.kirhgoff.mysha.server.dao;
+package org.kirhgoff.mysha.server.interfaces;
 
 import java.util.List;
 

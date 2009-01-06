@@ -16,12 +16,13 @@
       <!-- Other module inherits                                      -->
        <source path='domain'/>
        <source path='client'/>
-
+	
       <!-- Specify the app entry point class.                         -->
-	<entry-point class='org.kirhgoff.mysha.client.MyshaApplication' />
-	<servlet path="/service/auth" class="org.kirhgoff.mysha.server.AuthServiceImpl" />
-	<servlet path="/service/customer" class="org.kirhgoff.mysha.server.CustomerServiceImpl" />
-	<servlet path="/ConfigurationRemote" class="org.kirhgoff.mysha.server.ConfigurationRemoteImpl"/>
+	<entry-point class='org.kirhgoff.mysha.client.MyshaServerApplication' />
+	<servlet path="/AuthService" class="org.kirhgoff.mysha.server.services.gwt.AuthServiceImpl" />
+	<servlet path="/CustomerService" class="org.kirhgoff.mysha.server.services.gwt.CustomerServiceImpl" />
+	<servlet path="/InitialDataLoaderService" 
+		class="org.kirhgoff.mysha.server.services.gwt.InitialDataLoaderServiceImpl"/>
 	
       <!-- Specify the application specific style sheet.              -->
 	<stylesheet src='MyshaApplication.css' />

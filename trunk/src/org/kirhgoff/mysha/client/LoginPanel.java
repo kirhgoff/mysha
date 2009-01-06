@@ -1,8 +1,7 @@
-package org.kirhgoff.mysha.client.pages;
+package org.kirhgoff.mysha.client;
 
-import org.kirhgoff.mysha.client.MyshaApplication;
-import org.kirhgoff.mysha.client.services.AuthService;
-import org.kirhgoff.mysha.client.services.AuthServiceAsync;
+import org.kirhgoff.mysha.client.interfaces.AuthService;
+import org.kirhgoff.mysha.client.interfaces.AuthServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -16,11 +15,13 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class LoginPage extends Composite {
+public class LoginPanel extends Composite {
 	private Runnable succesfulLoginCallback;
-	private Label errorMessage;
 	
-	public LoginPage() {
+	//TODO create MainPanel and extract status bar there
+	private Label errorMessage;
+
+	public LoginPanel() {
 		errorMessage = new Label();
 		errorMessage.setStyleName("error-message");
 		final Label logo = new Label("Mysha");
@@ -59,12 +60,13 @@ public class LoginPage extends Composite {
 		VerticalPanel panel = new VerticalPanel();
 		panel.setWidth("100%");
 		panel.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
-		panel.add(MyshaApplication.IMAGES.logo().createImage());
+		panel.add(MyshaServerApplication.IMAGES.logo().createImage());
 		panel.add(logo);
 		panel.add(errorMessage);
 		panel.add(form);
 		panel.add(loginButton);
 		
+		//TODO understand
 		initWidget(panel);
 	}
 
@@ -85,12 +87,13 @@ public class LoginPage extends Composite {
 		});
 	}
 
-	public void setCallback(Runnable runnable) {
-		succesfulLoginCallback = runnable;
-	}
-	
 	public void displayMessage (String message) {
 		errorMessage.setText(message);
 	}
+	
+	public void setCallback(Runnable runnable) {
+		succesfulLoginCallback = runnable;
+	}	
+	
 
 }

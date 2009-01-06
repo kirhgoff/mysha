@@ -1,6 +1,6 @@
-package org.kirhgoff.mysha.server;
+package org.kirhgoff.mysha.server.interfaces;
 
-public interface IStartupService {
+public interface StartupService {
 
 	public static final String NAME = "startupService";
 

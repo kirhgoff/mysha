@@ -1,26 +1,23 @@
-package org.kirhgoff.mysha.server;
+package org.kirhgoff.mysha.server.services;
 
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 
-/**
- * Global application context
- * @author bruno.marchesson
- */
-public class ApplicationContext {
-	private static final String CONTEXT_FILE = "org/kirhgoff/mysha/resources/applicationContext.xml";
-	private static ApplicationContext INSTANCE;
+
+public class MyshaServerApplication {
+	private static final String CONTEXT_FILE = "org/kirhgoff/mysha/applicationContext.xml";
+	private static MyshaServerApplication INSTANCE;
 	protected GenericApplicationContext springContext;
 
-	public static synchronized final ApplicationContext getInstance() {
+	public static synchronized final MyshaServerApplication getInstance() {
 		if (INSTANCE == null) {
-			INSTANCE = new ApplicationContext();
+			INSTANCE = new MyshaServerApplication();
 		}
 		return INSTANCE;
 	}
 
-	protected ApplicationContext() {
+	protected MyshaServerApplication() {
 		initContextFile();
 	}
 

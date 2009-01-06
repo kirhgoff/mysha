@@ -8,6 +8,7 @@ import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
 import org.kirhgoff.mysha.domain.Customer;
+import org.kirhgoff.mysha.server.interfaces.CustomerDAO;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,7 +32,6 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 	@Transactional (propagation = Propagation.REQUIRED)
 	public int countAll() {
-		log.debug ("Called " + entityManager);
 		Query query = entityManager.createQuery("select count(*) from Customer customer");
 		return ((Long) query.getSingleResult()).intValue();
 	}

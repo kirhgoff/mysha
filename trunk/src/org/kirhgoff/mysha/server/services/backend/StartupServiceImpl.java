@@ -1,9 +1,10 @@
-package org.kirhgoff.mysha.server;
+package org.kirhgoff.mysha.server.services.backend;
 
 import org.kirhgoff.mysha.domain.Customer;
-import org.kirhgoff.mysha.server.dao.CustomerDAO;
+import org.kirhgoff.mysha.server.interfaces.CustomerDAO;
+import org.kirhgoff.mysha.server.interfaces.StartupService;
 
-public class StartupService implements IStartupService {
+public class StartupServiceImpl implements StartupService {
 	
 	private CustomerDAO customerDAO;
 	
