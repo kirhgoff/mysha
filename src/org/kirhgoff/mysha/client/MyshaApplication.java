@@ -2,6 +2,7 @@ package org.kirhgoff.mysha.client;
 
 import org.kirhgoff.mysha.client.pages.CustomerList;
 import org.kirhgoff.mysha.client.pages.LoginPage;
+import org.kirhgoff.mysha.client.services.ConfigurationRemote;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -23,17 +24,28 @@ public class MyshaApplication implements EntryPoint {
 
 	public void onModuleLoad() {
 		IMAGES = GWT.create(MyshaApplication.Images.class);
-		
-		loginPage = new LoginPage ();
-		
-		loginPage.setCallback (new Runnable () {
+
+		loginPage = new LoginPage();
+		loginPage.setCallback(new Runnable() {
 			public void run() {
 				RootPanel.get().remove(loginPage);
-				customerList = new CustomerList ();
-				RootPanel.get().add (customerList);
+				customerList = new CustomerList();
+				RootPanel.get().add(customerList);
 			}
 		});
 		RootPanel.get().add(loginPage);
+
+		displayMessage("Server initialization...");
+		ConfigurationRemote.Util.getInstance().initServerConfiguration(new DefaultCallback() {
+			public void onSuccess(Object result) {
+				displayMessage((String) result);
+			}
+
+		});
+	}
+
+	public void displayMessage(String status) {
+		loginPage.displayMessage("<i>" + status + "</i>");
 	}
 
 }

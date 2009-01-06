@@ -18,9 +18,10 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class LoginPage extends Composite {
 	private Runnable succesfulLoginCallback;
+	private Label errorMessage;
 	
 	public LoginPage() {
-		final Label errorMessage = new Label();
+		errorMessage = new Label();
 		errorMessage.setStyleName("error-message");
 		final Label logo = new Label("Mysha");
 		logo.setStyleName("logo-label");
@@ -74,18 +75,22 @@ public class LoginPage extends Composite {
 				if (result) {
 					succesfulLoginCallback.run();
 				} else {
-					errorMessage.setText("Password or login are incorrect!");
+					displayMessage("Password or login are incorrect!");
 				}
 			}
 
 			public void onFailure(Throwable caught) {
-				errorMessage.setText("Cannot access auth service: " + caught.getMessage());
+				displayMessage("Cannot access auth service: " + caught.getMessage());
 			}
 		});
 	}
 
 	public void setCallback(Runnable runnable) {
 		succesfulLoginCallback = runnable;
+	}
+	
+	public void displayMessage (String message) {
+		errorMessage.setText(message);
 	}
 
 }

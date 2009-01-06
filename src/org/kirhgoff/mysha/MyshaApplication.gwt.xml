@@ -2,6 +2,9 @@
 
       <!-- Inherit the core Web Toolkit stuff.                        -->
 	<inherits name='com.google.gwt.user.User' />
+	<inherits name='com.google.gwt.i18n.I18N'/>
+	<inherits name='net.sf.gilead.Adapter4Gwt15'/>
+	<inherits name='net.sf.gilead.emul.java5.ejb3.Ejb3'/>
 	
       <!-- Inherit the default GWT style sheet.  You can change       -->
       <!-- the theme of your GWT application by uncommenting          -->
@@ -18,6 +21,7 @@
 	<entry-point class='org.kirhgoff.mysha.client.MyshaApplication' />
 	<servlet path="/service/auth" class="org.kirhgoff.mysha.server.AuthServiceImpl" />
 	<servlet path="/service/customer" class="org.kirhgoff.mysha.server.CustomerServiceImpl" />
+	<servlet path="/ConfigurationRemote" class="org.kirhgoff.mysha.server.ConfigurationRemoteImpl"/>
 	
       <!-- Specify the application specific style sheet.              -->
 	<stylesheet src='MyshaApplication.css' />
