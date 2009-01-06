@@ -1,5 +1,7 @@
 package org.kirhgoff.mysha.client.pages;
 
+import java.util.List;
+
 import org.kirhgoff.mysha.client.services.CustomerService;
 import org.kirhgoff.mysha.client.services.CustomerServiceAsync;
 import org.kirhgoff.mysha.domain.Customer;
@@ -18,8 +20,8 @@ public class CustomerList extends Composite {
 		panel.setText(0, 1, "Surname");
 		
 		CustomerServiceAsync customerService = GWT.create(CustomerService.class);
-		customerService.getCustomers(new AsyncCallback<Customer[]>() {
-			public void onSuccess(Customer[] result) {
+		customerService.getCustomers(new AsyncCallback<List<Customer>>() {
+			public void onSuccess(List<Customer> result) {
 				int row = 1;
 				for (Customer customer : result) {
 					//panel.add(new Label (customer.getFirstName() + " " + customer.getSurName()));

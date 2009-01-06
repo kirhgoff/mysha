@@ -1,34 +1,22 @@
 package org.kirhgoff.mysha.server;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import net.sf.gilead.core.PersistentBeanManager;
+import net.sf.gilead.gwt.PersistentRemoteService;
 
 import org.kirhgoff.mysha.client.services.CustomerService;
 import org.kirhgoff.mysha.domain.Customer;
-
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import org.kirhgoff.mysha.server.dao.CustomerDAO;
 
 @SuppressWarnings("serial")
-public class CustomerServiceImpl extends RemoteServiceServlet implements CustomerService {
+public class CustomerServiceImpl extends PersistentRemoteService implements CustomerService {
 
-	public Customer[] getCustomers() {
-		String [][] data = new String [][] {
-				new String [] {"Kirill", "Lastovirya"},
-				new String [] {"Vasily", "Pupochkin"},
-				new String [] {"Natasha", "Devochkina"},
-				new String [] {"Alexander", "Pokrovsky"},
-				new String [] {"Semen", "Neznamov"},
-		};
+	public List<Customer> getCustomers() {
+		setBeanManager((PersistentBeanManager)ApplicationContext.getInstance().getBean("beanManager"));
+		CustomerDAO bean = (CustomerDAO) ApplicationContext.getInstance().getBean(CustomerDAO.NAME);
+		return bean.getAllCustomers();
 		
-		List<Customer> customers = new ArrayList<Customer>();
-		for (int i = 0; i < data.length; i++) {
-			Customer customer = new Customer ();
-			customer.setFirstName(data[i][0]);
-			customer.setSurName(data[i][1]);
-			customers.add(customer);
-			
-		}
-		return customers.toArray(new Customer[]{});
 	}
 
 }

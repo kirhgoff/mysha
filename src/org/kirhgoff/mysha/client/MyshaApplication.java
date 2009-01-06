@@ -24,7 +24,8 @@ public class MyshaApplication implements EntryPoint {
 
 	public void onModuleLoad() {
 		IMAGES = GWT.create(MyshaApplication.Images.class);
-
+		ApplicationParameters.getInstance().setApplication(this);
+		
 		loginPage = new LoginPage();
 		loginPage.setCallback(new Runnable() {
 			public void run() {
