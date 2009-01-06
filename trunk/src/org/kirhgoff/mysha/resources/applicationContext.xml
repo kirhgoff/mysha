@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd"
+	default-autowire="byName">
+	<!--==================== Database ==============================-->
+	<!-- Include common resources -->
+		<!-- Hibernate EntityManager Factory -->
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceXmlLocation" value="classpath:/org/kirhgoff/mysha/resources/persistence.xml" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="true" />
+				<property name="generateDdl" value="true" />
+				<property name="databasePlatform" value="org.hibernate.dialect.HSQLDialect" />
+			</bean>
+		</property>
+	</bean>
+	
+	<!--  Data source -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
+		<property name="url" value="jdbc:hsqldb:file:hsqldb" />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+	</bean>
+	
+	<!-- Transaction manager -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+	</bean>
+	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+	<!--
+		enable the configuration of transactional behavior based on
+		annotations
+	-->
+	<tx:annotation-driven />
+	
+	<!--==================== DAO ===============================-->
+	<!-- Message DAO 
+	<bean id="messageDAO" class="net.sf.gilead.sample.server.dao.jpa.MessageDAO" />
+	-->
+	
+	<!-- User DAO 
+	<bean id="userDAO" class="net.sf.gilead.sample.server.dao.jpa.UserDAO" />
+	-->
+	
+	<!--==================== Services ===========================-->
+	
+	<!-- Message service 
+	<bean id="messageService" class="net.sf.gilead.sample.server.service.implementation.MessageService">
+		<property name="messageDAO" ref="messageDAO" />
+	</bean>
+	-->
+	
+	<!-- Identification service 
+	<bean id="identificationService" class="net.sf.gilead.sample.server.service.implementation.IdentificationService">
+		<property name="userDAO" ref="userDAO" />
+	</bean>
+	-->
+	
+	<!-- Startup service--> 
+	<bean id="startupService" class="org.kirhgoff.mysha.server.StartupService">
+	</bean>
+	
+	
+	<!--==================== GWT stuff ===================================-->
+	<!-- Gilead configuration -->
+	<bean id="proxyStore" class="net.sf.gilead.core.store.stateless.StatelessProxyStore" />
+	<bean id="persistenceUtil" class="net.sf.gilead.core.hibernate.HibernateJpaUtil">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+	<bean id="beanManager" class="net.sf.gilead.core.PersistentBeanManager">
+		<property name="proxyStore" ref="proxyStore" />
+		<property name="persistenceUtil" ref="persistenceUtil" />
+	</bean>
+</beans>
