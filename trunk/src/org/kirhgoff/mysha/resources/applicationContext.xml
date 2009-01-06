@@ -3,6 +3,17 @@
 	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd"
 	default-autowire="byName">
+	
+	<bean id="log4jInitialization" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetClass" value="org.springframework.util.Log4jConfigurer" />
+		<property name="targetMethod" value="initLogging" />
+		<property name="arguments">
+			<list>
+				<value>classpath:org/kirhgoff/mysha/resources/log4j.xml</value>
+			</list>
+		</property>
+	</bean>
+	
 	<!--==================== Database ==============================-->
 	<!-- Include common resources -->
 		<!-- Hibernate EntityManager Factory -->
@@ -36,30 +47,27 @@
 	<tx:annotation-driven />
 	
 	<!--==================== DAO ===============================-->
-	<!-- Message DAO 
-	<bean id="messageDAO" class="net.sf.gilead.sample.server.dao.jpa.MessageDAO" />
-	-->
+	<bean id="customerDAO" class="org.kirhgoff.mysha.server.dao.CustomerDAOImpl" />
+
 	
 	<!-- User DAO 
 	<bean id="userDAO" class="net.sf.gilead.sample.server.dao.jpa.UserDAO" />
 	-->
 	
 	<!--==================== Services ===========================-->
-	
-	<!-- Message service 
-	<bean id="messageService" class="net.sf.gilead.sample.server.service.implementation.MessageService">
-		<property name="messageDAO" ref="messageDAO" />
-	</bean>
+	<!--
+		Message service <bean id="messageService" class="net.sf.gilead.sample.server.service.implementation.MessageService">
+		<property name="messageDAO" ref="messageDAO" /> </bean>
+	-->
+	<!--
+		Identification service <bean id="identificationService"
+		class="net.sf.gilead.sample.server.service.implementation.IdentificationService"> <property name="userDAO"
+		ref="userDAO" /> </bean>
 	-->
 	
-	<!-- Identification service 
-	<bean id="identificationService" class="net.sf.gilead.sample.server.service.implementation.IdentificationService">
-		<property name="userDAO" ref="userDAO" />
-	</bean>
-	-->
-	
-	<!-- Startup service--> 
+	<!-- Startup service-->
 	<bean id="startupService" class="org.kirhgoff.mysha.server.StartupService">
+		<property name="customerDAO" ref="customerDAO" />
 	</bean>
 	
 	

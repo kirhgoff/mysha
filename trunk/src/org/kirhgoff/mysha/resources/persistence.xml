@@ -5,8 +5,7 @@
   		version="1.0">
 
     <persistence-unit name="test" transaction-type="RESOURCE_LOCAL">
-    	<!--  <class>net.sf.gilead.sample.domain.Message</class>
-    	<class>net.sf.gilead.sample.domain.User</class>-->
+    	<class>org.kirhgoff.mysha.domain.Customer</class>
     </persistence-unit>
     
 </persistence>
