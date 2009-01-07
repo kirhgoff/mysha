@@ -61,7 +61,7 @@
 	
 	<!--==================== DAO Services ===============================-->
 	
-	<bean id="customerDAO" class="org.kirhgoff.mysha.server.dao.CustomerDAOImpl" />
+	<bean id="customerDAO" class="org.kirhgoff.mysha.server.services.dao.CustomerDAOImpl" />
 	
 	<!--==================== Backend Services ===========================-->
 	

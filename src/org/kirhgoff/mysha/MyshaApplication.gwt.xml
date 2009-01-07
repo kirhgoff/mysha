@@ -18,7 +18,7 @@
        <source path='client'/>
 	
       <!-- Specify the app entry point class.                         -->
-	<entry-point class='org.kirhgoff.mysha.client.MyshaServerApplication' />
+	<entry-point class='org.kirhgoff.mysha.client.MyshaClientApplication' />
 	<servlet path="/AuthService" class="org.kirhgoff.mysha.server.services.gwt.AuthServiceImpl" />
 	<servlet path="/CustomerService" class="org.kirhgoff.mysha.server.services.gwt.CustomerServiceImpl" />
 	<servlet path="/InitialDataLoaderService" 

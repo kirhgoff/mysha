@@ -11,8 +11,9 @@
   color: red;
 }
 
-.logo-label {
-  font-size: larger;
+.loginPanel-title {
+#TODO absolute value
+  font-size: 40px;
   font-family: sans-serif;
   font-weight: bolder;
 }
