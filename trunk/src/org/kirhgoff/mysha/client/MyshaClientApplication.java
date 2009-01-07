@@ -1,26 +1,29 @@
 package org.kirhgoff.mysha.client;
 
+import org.kirhgoff.mysha.client.controllers.HistoryController;
 import org.kirhgoff.mysha.client.interfaces.InitialDataLoaderService;
 import org.kirhgoff.mysha.client.interfaces.InitialDataLoaderServiceAsync;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.HistoryListener;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.ui.AbstractImagePrototype;
+import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.user.client.ui.ImageBundle;
 import com.google.gwt.user.client.ui.RootPanel;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class MyshaClientApplication implements EntryPoint {
-	
+public class MyshaClientApplication implements EntryPoint, HistoryListener {
 	public static MyshaClientApplication.Images IMAGES;
-	private LoginPanel loginPage;
-	private InboxPanel customerList;
-
 	public interface Images extends ImageBundle {AbstractImagePrototype logo();}
+	public DeckPanel layout;
+	private HistoryController historyController;
+	
 	private MyshaClientApplication () {};
 
 	//============
@@ -31,21 +34,20 @@ public class MyshaClientApplication implements EntryPoint {
 	//-------------------	
 	public void onModuleLoad() {
 		IMAGES = GWT.create(MyshaClientApplication.Images.class);
-		
-		//TODO provide nice way to manipulate with with windows
-		//choose some solution
-		loginPage = new LoginPanel();
-		loginPage.setCallback(new Runnable() {
-			public void run() {
-				RootPanel.get().remove(loginPage);
-				customerList = new InboxPanel();
-				RootPanel.get().add(customerList);
-			}
-		});
-		
-		RootPanel.get().add(loginPage);
-		
 		loadSampleData();
+	
+		layout = new DeckPanel ();
+//		LoginPanel loginPanel = new LoginPanel ();
+//		InboxPanel inboxPanel = new InboxPanel ();
+//
+//		layout.add(loginPanel);
+//		layout.add(inboxPanel);
+
+		historyController = new HistoryController (layout);
+		historyController.onHistoryChanged("Login");
+		
+		RootPanel.get().add(layout);
+		History.addHistoryListener(this);
 	}
 
 	private void loadSampleData() {
@@ -55,24 +57,22 @@ public class MyshaClientApplication implements EntryPoint {
 		ServiceDefTarget target = (ServiceDefTarget) configurationService;
 		target.setServiceEntryPoint(GWT.getModuleBaseURL() + "/InitialDataLoaderService");
 
-		displayMessage("Server initialization...");
+		System.out.println("Uploading sample data ...");
 		configurationService.loadSampleData(new AsyncCallback<String>() {
 			public void onSuccess(String result) {
-				displayMessage((String) result);
+				//displayMessage((String) result);
+				System.out.println("Sample data uploaded.");
 			}
 
 			public void onFailure(Throwable caught) {
-				displayMessage("Failure: " + caught);
-				
+				caught.printStackTrace();
 			}
 		});
 	}
-	
-	public void displayMessage(String status) {
-		//TODO move display errorMessage label to MainPanel
-		loginPage.displayMessage(status);
+
+	//TODO NavigationController
+	public void onHistoryChanged(String historyToken) {
+		historyController.onHistoryChanged (historyToken);
 	}
-	
-	
 
 }
