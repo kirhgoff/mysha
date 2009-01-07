@@ -25,7 +25,7 @@ public class LoginPanel extends Composite {
 		errorMessage = new Label();
 		errorMessage.setStyleName("error-message");
 		final Label logo = new Label("Mysha");
-		logo.setStyleName("logo-label");
+		logo.setStyleName("loginPanel-title");
 
 		final TextBox loginBox = new TextBox();
 		final PasswordTextBox passwordTextBox = new PasswordTextBox();
@@ -60,7 +60,7 @@ public class LoginPanel extends Composite {
 		VerticalPanel panel = new VerticalPanel();
 		panel.setWidth("100%");
 		panel.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
-		panel.add(MyshaServerApplication.IMAGES.logo().createImage());
+		panel.add(MyshaClientApplication.IMAGES.logo().createImage());
 		panel.add(logo);
 		panel.add(errorMessage);
 		panel.add(form);

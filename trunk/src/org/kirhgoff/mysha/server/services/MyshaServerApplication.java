@@ -7,28 +7,25 @@ import org.springframework.core.io.ClassPathResource;
 
 public class MyshaServerApplication {
 	private static final String CONTEXT_FILE = "org/kirhgoff/mysha/applicationContext.xml";
-	private static MyshaServerApplication INSTANCE;
+	private static MyshaServerApplication instance;
 	protected GenericApplicationContext springContext;
 
 	public static synchronized final MyshaServerApplication getInstance() {
-		if (INSTANCE == null) {
-			INSTANCE = new MyshaServerApplication();
+		if (instance == null) {
+			instance = new MyshaServerApplication();
 		}
-		return INSTANCE;
+		return instance;
 	}
 
 	protected MyshaServerApplication() {
-		initContextFile();
-	}
-
-	public Object getBean(String beanName) {
-		return springContext.getBean(beanName);
-	}
-
-	private void initContextFile() {
 		springContext = new GenericApplicationContext();
 		XmlBeanDefinitionReader xmlReader = new XmlBeanDefinitionReader(springContext);
 		xmlReader.loadBeanDefinitions(new ClassPathResource(CONTEXT_FILE));
 		springContext.refresh();
+	}
+
+	//TODO take care about this ambiguity bean=service
+	public Object getBean(String beanName) {
+		return springContext.getBean(beanName);
 	}
 }

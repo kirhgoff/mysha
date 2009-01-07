@@ -14,14 +14,14 @@ import com.google.gwt.user.client.ui.RootPanel;
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class MyshaServerApplication implements EntryPoint {
+public class MyshaClientApplication implements EntryPoint {
 	
-	public static MyshaServerApplication.Images IMAGES;
+	public static MyshaClientApplication.Images IMAGES;
 	private LoginPanel loginPage;
 	private InboxPanel customerList;
 
 	public interface Images extends ImageBundle {AbstractImagePrototype logo();}
-	private MyshaServerApplication () {};
+	private MyshaClientApplication () {};
 
 	//============
 	//M=A=I=N M=E=T=H=O=D
@@ -30,7 +30,7 @@ public class MyshaServerApplication implements EntryPoint {
 	// \\==============
 	//-------------------	
 	public void onModuleLoad() {
-		IMAGES = GWT.create(MyshaServerApplication.Images.class);
+		IMAGES = GWT.create(MyshaClientApplication.Images.class);
 		
 		//TODO provide nice way to manipulate with with windows
 		//choose some solution
