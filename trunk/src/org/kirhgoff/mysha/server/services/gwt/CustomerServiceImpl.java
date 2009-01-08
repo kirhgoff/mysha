@@ -13,11 +13,27 @@ import org.kirhgoff.mysha.server.services.MyshaServerApplication;
 @SuppressWarnings("serial")
 public class CustomerServiceImpl extends PersistentRemoteService implements CustomerService {
 
-	public List<Customer> getCustomersForInbox() {
+	private CustomerDAO bean;
+
+	public CustomerServiceImpl() {
 		setBeanManager((PersistentBeanManager)MyshaServerApplication.getInstance().getBean("beanManager"));
-		CustomerDAO bean = (CustomerDAO) MyshaServerApplication.getInstance().getBean(CustomerDAO.NAME);
+		bean = (CustomerDAO) MyshaServerApplication.getInstance().getBean(CustomerDAO.NAME);
+	}
+	
+	public List<Customer> getCustomersForInbox() {
 		return bean.getAllCustomers();
 		
+	}
+
+	public boolean addNewCustomer(String firstName, String secondName) {
+		if (firstName == null || secondName == null) throw new NullPointerException ();
+		//TODO check for uniqness
+		Customer customer = new Customer ();
+		customer.setFirstName(firstName);
+		customer.setSurName(secondName);
+		
+		bean.saveCustomer(customer);
+		return true;
 	}
 
 }

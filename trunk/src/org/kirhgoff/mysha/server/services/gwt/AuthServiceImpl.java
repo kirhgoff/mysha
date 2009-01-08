@@ -29,7 +29,7 @@ public class AuthServiceImpl extends RemoteServiceServlet implements AuthService
 
 	public boolean authorize(String username, String password) {
 		log.debug("Authorize: login=" + username + ", logged user=" + getUser ());
-		if (getUserFromSession() != null && getUserFromSession().getClass().equals(username)) {
+		if (getUserFromSession() != null && getUserFromSession().getLogin().equals(username)) {
 			log.debug("Already logged in, user=" + username);
 			return true;
 		}

@@ -11,4 +11,6 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface CustomerServiceAsync {
 	
 	void getCustomersForInbox (AsyncCallback<List<Customer>> callback);
+
+	void addNewCustomer(String firstName, String secondName, AsyncCallback<Boolean> asyncCallback);
 }
