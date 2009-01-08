@@ -44,10 +44,10 @@ public class MyshaClientApplication implements EntryPoint, HistoryListener {
 //		layout.add(inboxPanel);
 
 		historyController = new HistoryController (layout);
-		historyController.onHistoryChanged("Login");
 		
 		RootPanel.get().add(layout);
 		History.addHistoryListener(this);
+		History.newItem("Login");
 	}
 
 	private void loadSampleData() {

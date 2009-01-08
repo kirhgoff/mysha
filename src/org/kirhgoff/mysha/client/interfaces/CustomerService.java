@@ -11,4 +11,5 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface CustomerService extends RemoteService {
 	
 	List<Customer> getCustomersForInbox ();
+	boolean addNewCustomer (String firstName, String secondName);
 }
