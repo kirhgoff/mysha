@@ -2,6 +2,7 @@ package org.kirhgoff.mysha.client.controllers;
 
 import java.util.List;
 
+import org.kirhgoff.mysha.client.MyshaClientApplication;
 import org.kirhgoff.mysha.client.interfaces.AuthService;
 import org.kirhgoff.mysha.client.interfaces.AuthServiceAsync;
 import org.kirhgoff.mysha.client.interfaces.CustomerService;
@@ -16,7 +17,7 @@ import com.google.gwt.user.client.ui.Label;
 
 public class InboxController {
 
-	public void loadCustomrListToTable(final FlexTable panel) {
+	public void loadCustomerListToTable(final FlexTable panel) {
 		//TODO model assignment to view should be separated from GWT
 		//Create common widgets?
 		CustomerServiceAsync customerService = GWT.create(CustomerService.class);
@@ -32,14 +33,12 @@ public class InboxController {
 			}
 		
 			public void onFailure(Throwable caught) {
-				Label errorMessage = new Label ("Cannot access customers service:" + caught.getMessage());
-				errorMessage.setStyleName("error-message");
-				panel.add(errorMessage);
+				MyshaClientApplication.setStatus("Cannot access customers service:" + caught.getMessage());
 			}
 		});
 	}
 	
-	public void addUserNameToHeader(final Label label) {
+	public static void addUserNameToHeader(final Label label) {
 		AuthServiceAsync authService = GWT.create(AuthService.class);
 		authService.getUser(new AsyncCallback<User>() {
 			public void onSuccess(User result) {

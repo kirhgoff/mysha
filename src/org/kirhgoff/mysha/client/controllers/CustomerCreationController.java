@@ -4,6 +4,7 @@ import org.kirhgoff.mysha.client.interfaces.CustomerService;
 import org.kirhgoff.mysha.client.interfaces.CustomerServiceAsync;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
@@ -18,7 +19,9 @@ public class CustomerCreationController {
 				CustomerServiceAsync customerService = GWT.create(CustomerService.class);
 				customerService.addNewCustomer(firstNameBox.getText(), secondNameBox.getText(),
 						new AsyncCallback<Boolean>() {
-							public void onSuccess(Boolean result) {}
+							public void onSuccess(Boolean result) {
+								History.newItem("Inbox");
+							}
 
 							public void onFailure(Throwable caught) {
 							}

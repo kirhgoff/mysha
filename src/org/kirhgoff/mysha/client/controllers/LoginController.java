@@ -31,6 +31,7 @@ public class LoginController {
 			
 					public void onFailure(Throwable caught) {
 						errorMessage.setText("Cannot access auth service: " + caught.getMessage());
+						History.newItem("Login");
 					}
 				});
 			}

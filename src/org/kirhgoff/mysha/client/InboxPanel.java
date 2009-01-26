@@ -18,9 +18,6 @@ public class InboxPanel extends Composite {
 
 		VerticalPanel mainPanel = new VerticalPanel ();
 		
-		final Label label = new Label ();
-		label.setStyleName("mainPanel-header");
-		
 		HorizontalPanel creationPanel = new HorizontalPanel ();
 		TextBox firstNameBox = new TextBox ();
 		TextBox secondNameBox = new TextBox ();
@@ -40,7 +37,6 @@ public class InboxPanel extends Composite {
 		inboxPanel.getCellFormatter().addStyleName(0, 0, "inboxColumn");
 		inboxPanel.getCellFormatter().addStyleName(0, 1, "inboxColumn");
 		
-		mainPanel.add(label);
 		mainPanel.add (creationPanel);
 		mainPanel.add(inboxPanel);
 		
@@ -50,8 +46,7 @@ public class InboxPanel extends Composite {
 		customerController.registerCreationForm (firstNameBox, secondNameBox, addNewButton);
 		
 		InboxController controller = new InboxController ();
-		controller.loadCustomrListToTable(inboxPanel);
-		controller.addUserNameToHeader(label);
+		controller.loadCustomerListToTable(inboxPanel);
 	}
 	
 	
