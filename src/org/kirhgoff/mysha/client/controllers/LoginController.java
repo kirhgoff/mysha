@@ -1,5 +1,6 @@
 package org.kirhgoff.mysha.client.controllers;
 
+import org.kirhgoff.mysha.client.MyshaClientApplication;
 import org.kirhgoff.mysha.client.interfaces.AuthService;
 import org.kirhgoff.mysha.client.interfaces.AuthServiceAsync;
 
@@ -25,12 +26,12 @@ public class LoginController {
 						if (result) {
 							History.newItem("Inbox");
 						} else {
-							errorMessage.setText("Password or login are incorrect!");
+							MyshaClientApplication.setStatus("ERROR: Password or login are incorrect!");
 						}
 					}
 			
 					public void onFailure(Throwable caught) {
-						errorMessage.setText("Cannot access auth service: " + caught.getMessage());
+						MyshaClientApplication.setStatus("ERROR: Cannot access auth service: " + caught.getMessage());
 						History.newItem("Login");
 					}
 				});

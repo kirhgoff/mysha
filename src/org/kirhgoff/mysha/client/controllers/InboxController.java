@@ -37,19 +37,4 @@ public class InboxController {
 			}
 		});
 	}
-	
-	public static void addUserNameToHeader(final Label label) {
-		AuthServiceAsync authService = GWT.create(AuthService.class);
-		authService.getUser(new AsyncCallback<User>() {
-			public void onSuccess(User result) {
-				label.setText("Hello, " + result.getLogin());
-			}
-	
-			public void onFailure(Throwable caught) {
-				label.setText("Cannot access customers service:" + caught.getMessage());
-			}			
-		});
-		
-	}	
-
 }
