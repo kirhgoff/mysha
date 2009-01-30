@@ -6,7 +6,6 @@ import org.kirhgoff.mysha.client.interfaces.InitialDataLoaderServiceAsync;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.ui.AbstractImagePrototype;
@@ -36,10 +35,9 @@ public class MyshaClientApplication implements EntryPoint {
 
 		mainPanel = new MainPanel ();
 		RootPanel.get().add(mainPanel);
-		History.addHistoryListener(mainPanel);
 
 		loadSampleData();
-		AuthController.checkUserIsAlreadyLogged ();			
+		AuthController.checkUserIsAlreadyLogged ();	
 	}
 
 	private void loadSampleData() {
@@ -65,12 +63,12 @@ public class MyshaClientApplication implements EntryPoint {
 	public static void setStatus (String text) {
 		System.out.println(text);
 		Label messageLabel = INSTANCE.mainPanel.getMessageLabel();
-		messageLabel.setText(text);
+		messageLabel.setText("System: " + text);
 	}
 	
 	public static void setStatus (Throwable e) {
 		e.printStackTrace();
 		Label messageLabel = INSTANCE.mainPanel.getMessageLabel();
-		messageLabel.setText(e.getMessage());
+		messageLabel.setText("ERROR: " + e.getMessage());
 	}
 }
