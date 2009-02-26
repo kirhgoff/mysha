@@ -16,16 +16,19 @@ public class AuthController  {
 		AuthServiceAsync authService = GWT.create(AuthService.class);
 		authService.getUser(new AsyncCallback<User>() {
 			public void onSuccess(User result) {
-				System.out.println("AuthController: getUser: " + result);
-				if (result != null)
-					History.fireCurrentHistoryState();
+				System.out.println("AuthController: checkUserIsAlreadyLogedIn: " + result);
+				if (result != null) {
+					History.newItem("Inbox", false);
+				}
 				else
-					History.newItem("Login", true);
+					History.newItem("Login", false);
+				History.fireCurrentHistoryState();
 			}
 		
 			public void onFailure(Throwable caught) {
 				caught.printStackTrace();
 				History.newItem("Login");
+				History.fireCurrentHistoryState();
 			}
 		});
 	}
@@ -41,6 +44,11 @@ public class AuthController  {
 				label.setText("Cannot access customers service:" + caught.getMessage());
 			}			
 		});
+		
+	}
+
+	public static void logoffCurentUser() {
+		// TODO Auto-generated method stub
 		
 	}	
 

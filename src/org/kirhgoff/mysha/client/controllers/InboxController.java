@@ -3,17 +3,13 @@ package org.kirhgoff.mysha.client.controllers;
 import java.util.List;
 
 import org.kirhgoff.mysha.client.MyshaClientApplication;
-import org.kirhgoff.mysha.client.interfaces.AuthService;
-import org.kirhgoff.mysha.client.interfaces.AuthServiceAsync;
 import org.kirhgoff.mysha.client.interfaces.CustomerService;
 import org.kirhgoff.mysha.client.interfaces.CustomerServiceAsync;
 import org.kirhgoff.mysha.domain.Customer;
-import org.kirhgoff.mysha.domain.User;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.Label;
 
 public class InboxController {
 

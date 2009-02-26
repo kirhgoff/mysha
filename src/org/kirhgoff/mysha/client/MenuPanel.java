@@ -1,9 +1,11 @@
 package org.kirhgoff.mysha.client;
 
-import org.kirhgoff.mysha.client.widget.Hover;
-import org.kirhgoff.mysha.client.widget.Selected;
+import org.kirhgoff.mysha.client.controllers.Action;
+import org.kirhgoff.mysha.client.controllers.AuthController;
+import org.kirhgoff.mysha.client.controllers.HistoryAction;
+import org.kirhgoff.mysha.client.controllers.Hover;
+import org.kirhgoff.mysha.client.controllers.Selected;
 
-import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -12,28 +14,30 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 public class MenuPanel extends Composite {
-    private int lastMenuItemID=1;
+    private Label menuTitle;
+	private FlowPanel panel;
     private Selected selector;
 
-    private Label menuTitle = new Label ("Menu");
-	private FlowPanel holder;
 
     public MenuPanel(){
-
         selector = new Selected();
        
-        holder = new FlowPanel();
-        holder.setStyleName("menuPanel");    
-        holder.add(menuTitle);
+        panel = new FlowPanel();
+        menuTitle = new Label ("Menu");
+        panel.setStyleName("menuPanel");    
         menuTitle.setStyleName("menuPanel-menuTitle");
+
+        panel.add(menuTitle);
+        //TODO use history controller and change active panel directly from it
+        panel.add(link("inbox", createInboxAction()));
+		panel.add(link("new project", createNewProjectAction()));
+		panel.add(link("sandbox", new HistoryAction ("Sandbox")));
+		panel.add(link("exit", createExitAction()));
 		
-        holder.add(link("Inbox", "Inbox"));
-		holder.add(link("Add task", "AddTask"));
-		
-        initWidget(holder);
+        initWidget(panel);
     }
 
-	private HTML link(String text, final String location){
+	private HTML link(String text, final Action action){
 		HTML menuItem = new HTML(text);
         menuItem.setStyleName("menu-item");
 
@@ -41,12 +45,39 @@ public class MenuPanel extends Composite {
         menuItem.addMouseListener(Hover.getHoverMla());
         menuItem.addClickListener(new ClickListener(){
             public void onClick(Widget sender){
-            	History.newItem(location);
+            	action.invoke ();
             }
         });
 
-        lastMenuItemID++;
-
         return menuItem;
     }
+	
+	private Action createExitAction() {
+		return new Action () {
+			public void invoke() {
+				//1. Send server message that we are logged off
+				AuthController.logoffCurentUser ();
+				
+				//2. hide menu
+				hideMenu ();
+				
+				//3. send message to active console
+				new HistoryAction ("Exit").invoke();
+			}
+		};
+	}
+
+	protected void hideMenu() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private HistoryAction createNewProjectAction() {
+		return new HistoryAction ("AddTask");
+	}
+
+	private HistoryAction createInboxAction() {
+		return new HistoryAction ("Inbox");
+	}
+
 }

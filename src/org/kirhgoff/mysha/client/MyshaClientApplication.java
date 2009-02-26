@@ -1,6 +1,5 @@
 package org.kirhgoff.mysha.client;
 
-import org.kirhgoff.mysha.client.controllers.AuthController;
 import org.kirhgoff.mysha.client.interfaces.InitialDataLoaderService;
 import org.kirhgoff.mysha.client.interfaces.InitialDataLoaderServiceAsync;
 
@@ -37,7 +36,6 @@ public class MyshaClientApplication implements EntryPoint {
 		RootPanel.get().add(mainPanel);
 
 		loadSampleData();
-		AuthController.checkUserIsAlreadyLogged ();	
 	}
 
 	private void loadSampleData() {
