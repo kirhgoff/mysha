@@ -1,4 +1,4 @@
-package org.kirhgoff.mysha.client.widget;
+package org.kirhgoff.mysha.client.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
