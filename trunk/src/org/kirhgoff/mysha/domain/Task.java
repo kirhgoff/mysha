@@ -8,6 +8,7 @@ public class Task {
 	private String id;
 	private String title;
 	private String type;
+	private String summary;
 	
 	public Task() {
 		children = new ArrayList<Task>();
@@ -59,6 +60,14 @@ public class Task {
 
 	public String getStatus() {
 		return "New";
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+
+	public String getSummary() {
+		return summary;
 	}
 
 }
