@@ -1,4 +1,4 @@
-package org.kirhgoff.mysha.client;
+package org.kirhgoff.mysha.client.gui.task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class TaskListPanel extends Composite {
 	}
 
 	private static void addTask(VerticalPanel panel, Task task) {
-		System.out.println("Adding task: " + task);
+		//System.out.println("Adding task: " + task);
 		TaskPanel taskPanel = new TaskPanel (task);
 		panel.add (taskPanel);
 

@@ -1,5 +1,6 @@
 package org.kirhgoff.mysha.client;
 
+import org.kirhgoff.mysha.client.gui.task.TaskPanel;
 import org.kirhgoff.mysha.domain.Task;
 
 import com.google.gwt.user.client.ui.Composite;
@@ -13,17 +14,11 @@ public class SandboxPanel extends Composite {
 		Label header = new Label ("Sandbox: play here");
 		panel.add(header);
 		
-		TaskPanel taskPanel = new TaskPanel (createDocumentTask ());
-		panel.add(taskPanel);
+		TaskPanel theTaskPanel = new TaskPanel (createDocumentTask ());
+		panel.add(theTaskPanel);
 		
-		EditTaskPanel editTaskPanel = new EditTaskPanel (createDocumentTask ());
-		panel.add(editTaskPanel);
-		
-		TaskPanel taskPanel2 = new TaskPanel (createProjectTask ());
-		panel.add(taskPanel2);
-		
-		EditTaskPanel editTaskPanel2 = new EditTaskPanel (createProjectTask ());
-		panel.add(editTaskPanel2);
+		TaskPanel theTaskPanel2 = new TaskPanel (createProjectTask ());
+		panel.add(theTaskPanel2);
 		
 		initWidget(panel);
 	}

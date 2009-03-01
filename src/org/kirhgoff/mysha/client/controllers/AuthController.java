@@ -37,7 +37,8 @@ public class AuthController  {
 		AuthServiceAsync authService = GWT.create(AuthService.class);
 		authService.getUser(new AsyncCallback<User>() {
 			public void onSuccess(User result) {
-				label.setText("Hello, " + result.getLogin());
+				if (result != null) label.setText("Hello, " + result.getLogin());
+				else label.setText("You are not logged in");
 			}
 	
 			public void onFailure(Throwable caught) {

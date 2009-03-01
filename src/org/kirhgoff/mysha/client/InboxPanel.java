@@ -2,6 +2,8 @@ package org.kirhgoff.mysha.client;
 
 
 
+import org.kirhgoff.mysha.client.gui.task.TaskListPanel;
+
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
