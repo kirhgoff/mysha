@@ -9,6 +9,7 @@ public class Task {
 	private String title;
 	private String type;
 	private String summary;
+	private String status = "New";
 	
 	public Task() {
 		children = new ArrayList<Task>();
@@ -59,7 +60,7 @@ public class Task {
 	}
 
 	public String getStatus() {
-		return "New";
+		return status;
 	}
 
 	public void setSummary(String summary) {
@@ -70,4 +71,15 @@ public class Task {
 		return summary;
 	}
 
+	public Task copy() {
+		Task copy = Task.from (id, type, title);
+		copy.setStatus (getStatus ());
+		
+		//TODO copy children
+		return copy;
+	}
+
+	private void setStatus(String status) {
+		this.status = status;
+	}
 }

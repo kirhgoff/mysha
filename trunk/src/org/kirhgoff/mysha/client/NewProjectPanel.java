@@ -1,15 +1,10 @@
 package org.kirhgoff.mysha.client;
 
-import org.kirhgoff.mysha.client.controllers.CustomerCreationController;
 import org.kirhgoff.mysha.client.controllers.TemplateController;
 
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class NewProjectPanel extends Composite {

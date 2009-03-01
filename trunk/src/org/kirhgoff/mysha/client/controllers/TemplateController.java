@@ -3,7 +3,7 @@ package org.kirhgoff.mysha.client.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kirhgoff.mysha.client.TaskPanel;
+import org.kirhgoff.mysha.client.gui.task.TaskPanel;
 import org.kirhgoff.mysha.domain.Task;
 
 import com.google.gwt.user.client.ui.ChangeListener;
