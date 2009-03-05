@@ -19,6 +19,7 @@ public class TaskOperationsController extends ActionListController {
 
 	public TaskOperationsController(Task task) {
 		this.task = task;
+		this.dirtyTask = task.copy();
 	}
 
 	public Task getTask() {
