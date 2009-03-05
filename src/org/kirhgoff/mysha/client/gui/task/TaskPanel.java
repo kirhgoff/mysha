@@ -1,22 +1,22 @@
 package org.kirhgoff.mysha.client.gui.task;
 
-import org.kirhgoff.mysha.client.StatefulPanel;
+import org.kirhgoff.mysha.client.SwitchablePanel;
 import org.kirhgoff.mysha.domain.Task;
 
 import com.google.gwt.user.client.ui.DockPanel;
 
-public class TaskPanel extends StatefulPanel {
+public class TaskPanel extends SwitchablePanel {
 
-	private TaskPanelController controller;
+	private TaskOperationsController controller;
 
 	public TaskPanel(Task task) {
 		super();
 
-		controller = new TaskPanelController(this, task);
-		controller.registerWidget("View", createPanelWithBuilder(new TaskPanelBuilder()));
-		controller.registerWidget("Edit", createPanelWithBuilder(new EditTaskPanelBuilder()));
+		controller = new TaskOperationsController(task);
+		add("View", createPanelWithBuilder(new TaskPanelBuilder()), true);
+		add("Edit", createPanelWithBuilder(new EditTaskPanelBuilder()));
 
-		controller.setState("View");
+		//controller.setState("View");
 	}
 
 	private DockPanel createPanelWithBuilder(TaskPanelBuilder builder) {
@@ -33,7 +33,11 @@ public class TaskPanel extends StatefulPanel {
 		return "taskPanel-" + controller.getTask ().getType();
 	}
 
-	public TaskPanelController getController() {
+	public TaskOperationsController getOperationsController() {
 		return controller;
+	}
+	
+	public Task getTask () {
+		return controller.getTask();
 	}
 }

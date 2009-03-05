@@ -7,7 +7,7 @@ public class Hover {
 
     private static MouseListenerAdapter mla;
 
-    public static MouseListenerAdapter getHoverMla(){
+    public static MouseListenerAdapter getHoverMouseListener(){
         if(mla == null){
             mla = new MouseListenerAdapter(){
                     public void onMouseEnter(Widget hoverableWidget){
