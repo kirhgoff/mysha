@@ -1,37 +1,35 @@
 package org.kirhgoff.mysha.client.gui.task;
 
+import org.kirhgoff.mysha.client.controllers.Action;
 import org.kirhgoff.mysha.domain.Task;
 
-import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class TaskPanelBuilder {
 
-	protected Widget createControlPanel(TaskPanel taskPanel) {
+	protected Widget createControlPanel(final TaskPanel taskPanel) {
 		VerticalPanel panel = new VerticalPanel ();
-		panel.add(createButton (taskPanel, "Edit"));
+		//not good - probably better move cotroller calls to panel itself
+		Action action = taskPanel.getSwitchableController().getActionByName("Edit");
+		System.out.println ("TaskPanelBuilder.createControlPanel Edit action=" + action);
+		panel.add(createButton(taskPanel, "Edit", action));
 		return panel;
 	}
 
-	protected static Widget createButton(final TaskPanel taskPanel, final String string) {
-		Label label = new Label(string);
+	protected Widget createButton(final TaskPanel taskPanel, final String actionName, Action action) {
+		Label label = new Label(actionName);
 		label.setStyleName(taskPanel.getMainStyle() + "-button");
-		//move out to controller
-		label.addClickListener(new ClickListener () {
-			public void onClick(Widget sender) {
-				taskPanel.getController ().setState(string);
-			}
-		});
-		
+		taskPanel.getOperationsController().add(actionName, action); 
+		taskPanel.getOperationsController().createTriggerForClick (actionName, label);
 		return label;
 	}
 
 	protected Widget createTaskBodyPanel(TaskPanel taskPanel) {
 		VerticalPanel taskBodyPanel = new VerticalPanel ();
 		Label titleLabel = new Label();
-		taskPanel.getController ().registerTitleLabel (titleLabel);
+		taskPanel.getOperationsController ().registerTitleLabel (titleLabel);
 		titleLabel.setStyleName(taskPanel.getMainStyle() + "-titleLabel");
 		taskBodyPanel.add (titleLabel);
 		taskBodyPanel.setWidth("100%");
@@ -40,7 +38,7 @@ public class TaskPanelBuilder {
 
 	protected Widget createCommonInfoPanel(TaskPanel taskPanel) {
 		VerticalPanel commonInfoPanel = new VerticalPanel ();
-		Task task = taskPanel.getController ().getTask ();
+		Task task = taskPanel.getTask ();
 		
 		Label idLabel = new Label(task.getID());
 		Label typeLabel = new Label ("Type: " + task.getType());

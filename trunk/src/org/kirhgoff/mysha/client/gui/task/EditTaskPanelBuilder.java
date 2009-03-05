@@ -1,5 +1,6 @@
 package org.kirhgoff.mysha.client.gui.task;
 
+import org.kirhgoff.mysha.client.controllers.Action;
 import org.kirhgoff.mysha.domain.Task;
 
 import com.google.gwt.user.client.ui.Grid;
@@ -12,19 +13,24 @@ import com.google.gwt.user.client.ui.Widget;
 public class EditTaskPanelBuilder extends TaskPanelBuilder {
 
 	protected Widget createControlPanel(TaskPanel taskPanel) {
-		System.out.println ("EditTaskPanelBuilder.createControlPanel ");
+		final Action switchToView = taskPanel.getSwitchableController().getActions().get("View");
+		System.out.println ("EditTaskPanelBuilder.createControlPanel " + switchToView);
+
 		VerticalPanel panel = new VerticalPanel ();
-		panel.add(TaskPanelBuilder.createButton (taskPanel, "Save"));
-		panel.add(TaskPanelBuilder.createButton (taskPanel, "Cancel"));
+		TaskOperationsController operationsController = taskPanel.getOperationsController ();
+		panel.add(createButton (taskPanel, "Save", operationsController.createSaveAction(switchToView)));
+		panel.add(createButton (taskPanel, "Cancel", operationsController.createCancelAction(switchToView)));
 		return panel;
 	}
-	
+
 	protected Widget createTaskBodyPanel(TaskPanel taskPanel) {
 		System.out.println ("EditTaskPanelBuilder.createTaskBodyPanel ");
 		Grid taskBodyPanel = new Grid (2, 2);
+		
 		String mainStyle = taskPanel.getMainStyle();
-		TaskPanelController controller = taskPanel.getController ();
-		Task task = controller.getTask();
+		Task task = taskPanel.getTask();
+		TaskOperationsController controller = taskPanel.getOperationsController ();
+		
 		taskBodyPanel.setStyleName (mainStyle + "-taskBodyPanel");
 		
 		//summary
