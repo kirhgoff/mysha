@@ -1,8 +1,12 @@
 package org.kirhgoff.mysha.client.gui.task;
 
+import java.util.Map;
+
 import org.kirhgoff.mysha.client.controllers.Action;
+import org.kirhgoff.mysha.client.gui.workflow.WorkflowOperations;
 import org.kirhgoff.mysha.domain.Task;
 
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -15,6 +19,13 @@ public class TaskPanelBuilder {
 		Action action = taskPanel.getSwitchableController().getActionByName("Edit");
 		System.out.println ("TaskPanelBuilder.createControlPanel Edit action=" + action);
 		panel.add(createButton(taskPanel, "Edit", action));
+		panel.add(new HTML ("<p/>"));
+		
+		Map<String, Action> transitionsForTask = WorkflowOperations.getTransitionsForTask (taskPanel.getTask());
+		for (String transitionName : transitionsForTask.keySet()) {
+			panel.add(createButton(taskPanel, transitionName, transitionsForTask.get(transitionName)));	
+		}
+		
 		return panel;
 	}
 
